@@ -23,7 +23,6 @@ count_lines = 0
 count_elements = 0
 
 for line in scidata:
-    print line
     count_lines += 1
 
 for element in scidata[0]:
