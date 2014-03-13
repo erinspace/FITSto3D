@@ -2,6 +2,9 @@
 
 import numpy
 from astropy.io import fits
+import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
+import pylab
 
 # leftovers from super quick FITS to CSV file program
 # # ask for an input file 
@@ -14,8 +17,6 @@ from astropy.io import fits
 hdulist = fits.open('WASP-43140308054812.FITS')
 scidata = hdulist[0].data
 
-
-
 ## this is just for testing to make sure there are
 ## the numbers I think there are
 count_lines = 0
@@ -24,46 +25,29 @@ count_elements = 0
 for line in scidata:
     count_lines += 1
 
-for element in scidata[1]:
+for element in scidata[0]:
     count_elements += 1
 
 print "There are", count_lines, 'lines'
 print "There are", count_elements, 'elements'
 
-# scidata = list(scidata)
-
-threeD_array = []
-
-# # attempt using numpy iteration - dosent work
-# # get error: IndexError: index 1271 is out of bounds for size 650
-# for line in numpy.nditer(scidata):
-#     inner_array = []
-#     for element in numpy.nditer(scidata[line]):
-#         inner_array.append(element)
-#         inner_array.append(line)
-#         inner_array.append(scidata[line][element])
-#         threeD_array.append(inner_array)
-#         inner_array = []
-
-# # attempt using "normal" loops... same error!
-# for line in scidata:
-#     inner_array = []
-#     for element in scidata[line]:
-#         inner_array.append(element)
-#         inner_array.append(line)
-#         inner_array.append(scidata[line][element])
-#         threeD_array.append(inner_array)
-#         inner_array = []
-
+x_coordinates = []
+y_coordinates = []
+z_coordinates = []
 
 # an attempt using range? Why not. 
 # DO NOT like this cause it's hard coded! But it works? 
 for line in range(0, 500):
-    inner_array = []
     for element in range(0, scidata[0].size):
-        inner_array.append(element)
-        inner_array.append(line)
-        inner_array.append(scidata[line][element])
-        threeD_array.append(inner_array)
-        inner_array = []
+        x_coordinates.append(element)
+        y_coordinates.append(line)
+        z_coordinates.append(scidata[line][element])
+
+# create the graph!
+graph = pylab.figure()
+axes = Axes3D(graph)
+
+axes.scatter(x_coordinates, y_coordinates, z_coordinates)
+
+plt.show()
 
