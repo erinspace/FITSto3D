@@ -23,6 +23,7 @@ count_lines = 0
 count_elements = 0
 
 for line in scidata:
+    print line
     count_lines += 1
 
 for element in scidata[0]:
@@ -36,12 +37,13 @@ y_coordinates = []
 z_coordinates = []
 
 # an attempt using range? Why not. 
-# DO NOT like this cause it's hard coded! But it works? 
-for line in range(0, 500):
-    for element in range(0, scidata[0].size):
+# DO NOT like this dunno why
+for line in range(0, count_lines):
+    for element in range(0, count_elements):
         x_coordinates.append(element)
         y_coordinates.append(line)
         z_coordinates.append(scidata[line][element])
+
 
 # create the graph!
 graph = pylab.figure()
